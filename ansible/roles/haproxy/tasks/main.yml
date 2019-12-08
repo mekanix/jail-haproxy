@@ -1,0 +1,21 @@
+---
+- name: install packages
+  with_items: "{{ haproxy_packages }}"
+  package:
+    name: "{{ item.name }}"
+  notify:
+    - restart haproxy
+
+- name: enable service
+  template:
+    src: haproxy.j2
+    dest: /etc/rc.conf.d/haproxy
+  notify:
+    - restart haproxy
+
+- name: generate configuration
+  template:
+    src: haproxy.conf.j2
+    dest: /usr/local/etc/haproxy.conf
+  notify:
+    - restart haproxy

@@ -1,0 +1,2 @@
+# jail-haproxy
+HAProxy config
